@@ -175,6 +175,12 @@ class Tissue {
     //! incremented when a new cell is born
     unsigned id_tail_ = 0;
 
+    //! incremented when a segment is copied  //Yunong Xia
+    unsigned cn_id_tail_ = 0;
+
+    //! incremented when a new point mutation occurs //Yunong Xia
+    unsigned snv_id_tail_ = 0;
+
     //! event queue
     std::multimap<double, std::shared_ptr<Cell>> queue_;
     //! continuous time
@@ -201,6 +207,13 @@ class Tissue {
     std::unique_ptr<urbg_t> engine2_;
     //! passenger mutation random number generator
     std::unique_ptr<urbg_t> engine3_;
+
+    //! copy number id random number generator
+    std::unique_ptr<urbg_t> engine_cn_;
+
+    //! point mutation id random number generator
+    std::unique_ptr<urbg_t> engine_snv_;
+
 };
 
 } // namespace tumopp

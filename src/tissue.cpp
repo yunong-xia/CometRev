@@ -130,7 +130,7 @@ bool Tissue::grow(const size_t max_size, const double max_time,
                 mother->set_time_of_birth(time_, ++id_tail_, ancestor, extant_cells_.size());
                 daughter->differentiate(*engine_);
                 daughter->set_time_of_birth(time_, ++id_tail_, ancestor, extant_cells_.size());
-
+                
                 drivers_ << mother->mutate(*engine_, *engine3_);
                 drivers_ << daughter->mutate(*engine_, *engine3_);
                 if (! stopMutH) {                                 //ruping

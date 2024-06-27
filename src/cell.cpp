@@ -127,7 +127,7 @@ std::string Cell::mutate2(urbg_t& engine2, urbg_t& engine3) {
     oss << id_ << "\t" << passengers << "\n";
     return oss.str();
 }
-  
+
 std::string Cell::force_mutate(urbg_t& engine) {
     event_rates_ = std::make_shared<EventRates>(*event_rates_);
     const double s_birth = GAUSS_BIRTH(engine);
