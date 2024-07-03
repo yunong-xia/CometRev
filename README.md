@@ -1,7 +1,7 @@
-# Comet
-**Co**mputational **m**odeling of **e**volving **t**umors
+# CometRev
+**Co**mputational **m**odeling of **e**volving **t**umors **Rev**ised
 
-Comet is built on [Tumopp](https://github.com/heavywatal/tumopp), a single-cell based, flexible and efficient spatial tumor growth simulator written in C++.
+CometRev is built on [Comet](https://github.umn.edu/sunpath/Comet), which is also built on [Tumopp](https://github.com/heavywatal/tumopp), a single-cell based, flexible and efficient spatial tumor growth simulator written in C++.
 
 The differences between Comet and the original tumopp packages are:
 - [x] passenger mutations are generated and printed out for each cell
@@ -51,4 +51,4 @@ Ruping Sun and Athanasios N. Nikolakopoulos\
 ☕**DOI:** [10.1101/2020.08.24.262378](https://doi.org/10.1101/2020.08.24.262378)
 
 ## Author:
-Ruping Sun, Athanasios Nikolakopoulos
+Ruping Sun, Yunong Xia
