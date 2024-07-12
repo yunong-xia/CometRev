@@ -62,7 +62,6 @@ std::uniform_int_distribution<int> uniform_distribution(1000001, 50000000); // d
 std::uniform_int_distribution<int> uniform_distribution_birth(1, 200000);  // define the range of driver (birth rate) mutational space
 std::uniform_int_distribution<int> uniform_distribution_migrate(200001, 500000);   // define the range of driver (death rate) mutational space
 std::uniform_int_distribution<int> uniform_distribution_death(500001, 1000000);  // define the range of driver (migration rate) mutational space
-  
 }// namespace
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 
@@ -115,7 +114,41 @@ std::string Cell::mutate(urbg_t& engine, urbg_t& engine3) {
     }
     return oss.str();
 }
- 
+
+std::string Cell::mutate(urbg_t& engine, urbg_t& engine3) {
+    auto oss = wtl::make_oss();
+    if (BERN_MUT_BIRTH(engine)) {
+        event_rates_ = std::make_shared<EventRates>(*event_rates_);
+        double s = GAUSS_BIRTH(engine);
+        oss << id_ << "\tbeta\t" << std::to_string(uniform_distribution_birth(engine3)) << "\t" << s << "\n";
+        event_rates_->birth_rate *= (s += 1.0);
+    }
+    if (BERN_MUT_DEATH(engine)) {
+        event_rates_ = std::make_shared<EventRates>(*event_rates_);
+        double s = GAUSS_DEATH(engine);
+        oss << id_ << "\tdelta\t" << std::to_string(uniform_distribution_death(engine3)) << "\t" << s << "\n";
+        event_rates_->death_rate *= (s += 1.0);
+    }
+    if (BERN_MUT_ALPHA(engine)) {
+        event_rates_ = std::make_shared<EventRates>(*event_rates_);
+        double s = GAUSS_ALPHA(engine);
+        oss << id_ << "\talpha\t" << std::to_string(uniform_distribution_death(engine3)) << "\t" << s << "\n";
+        event_rates_->death_prob *= (s += 1.0);
+    }
+    if (BERN_MUT_MIGRA(engine) ) {
+        event_rates_ = std::make_shared<EventRates>(*event_rates_);
+        double s = GAUSS_MIGRA(engine);
+        oss << id_ << "\trho\t" << std::to_string(uniform_distribution_migrate(engine3)) << "\t" << s << "\n";
+        event_rates_->migra_rate *= (s += 1.0);
+    }
+
+
+    
+    
+    return oss.str();
+}
+
+
 std::string Cell::mutate2(urbg_t& engine2, urbg_t& engine3) {
     auto oss = wtl::make_oss();
     auto n_passengers = poisson_distribution(engine2);

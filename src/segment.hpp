@@ -19,8 +19,7 @@ namespace tumopp
                     strcpy(allele_origin_, other.allele_origin_);
                 }
             
-            ~Segment();
-
+            ~Segment() noexcept = default;
 
         private:            
             //! paternal or maternal
@@ -29,11 +28,9 @@ namespace tumopp
             //! segment id
             unsigned id_;
             
-            //! ids' of point mutatiions
+            //! ids' of point mutations
             std::vector<unsigned> snvs_;
-
     };
-
 
 
 } // namespace tumopp

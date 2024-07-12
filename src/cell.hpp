@@ -7,6 +7,7 @@
 
 #include "coord.hpp"
 #include "random.hpp"
+#include "segment.hpp"
 
 #include <cstdint>
 #include <vector>
@@ -88,6 +89,13 @@ class Cell {
     Cell(const coord_t& v, unsigned i,
          std::shared_ptr<EventRates> er=std::make_shared<EventRates>()) noexcept:
       event_rates_(er), coord_(v), id_(i) {}
+    //! Constructor for first cells with copy number initialization, Yunong Xia
+    Cell(const coord_t& v, unsigned i,
+         std::shared_ptr<EventRates> er=std::make_shared<EventRates>()) noexcept:
+      event_rates_(er), coord_(v), id_(i) {
+        copies_.push_back(1); // add copy with id 1
+        copies_.push_back(2); // add copy with id 2
+      }
     //! Copy constructor
     Cell(const Cell& other) noexcept:
       ancestor_(other.ancestor_),
@@ -205,6 +213,8 @@ class Cell {
     int8_t proliferation_capacity_ = -1;
     //! next event: birth, death, or migration
     Event next_event_ = Event::birth;
+
+    std::vector<unsigned> copies_;
 };
 
 } // namespace tumopp
