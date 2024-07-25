@@ -1,0 +1,1 @@
+/usr/bin/g++ -g "CMakeFiles/test-tissue.dir/tissue.cpp.o" -o test-tissue  -Wl,-rpath,/home/yunong-xia/Sunpath/CometRev/build ../libcomet.so 

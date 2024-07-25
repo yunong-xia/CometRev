@@ -49,7 +49,7 @@ class bernoulli_distribution {
 
 GammaFactory GAMMA_FACTORY(Cell::param().GAMMA_SHAPE);
 bernoulli_distribution BERN_SYMMETRIC(Cell::param().PROB_SYMMETRIC_DIVISION);
-bernoulli_distribution BERN_MUT_BIRTH(Cell::param().RATE_BIRTH);
+bernoulli_distribution BERN_MUT_BIRTH(Cell::param().RATE_BIRTH);    //(see simulation.cpp for defition of "u_b") occurance rate of mutations affecting birth rate
 bernoulli_distribution BERN_MUT_DEATH(Cell::param().RATE_DEATH);
 bernoulli_distribution BERN_MUT_ALPHA(Cell::param().RATE_ALPHA);
 bernoulli_distribution BERN_MUT_MIGRA(Cell::param().RATE_MIGRA);
@@ -62,6 +62,11 @@ std::uniform_int_distribution<int> uniform_distribution(1000001, 50000000); // d
 std::uniform_int_distribution<int> uniform_distribution_birth(1, 200000);  // define the range of driver (birth rate) mutational space
 std::uniform_int_distribution<int> uniform_distribution_migrate(200001, 500000);   // define the range of driver (death rate) mutational space
 std::uniform_int_distribution<int> uniform_distribution_death(500001, 1000000);  // define the range of driver (migration rate) mutational space
+
+
+bernoulli_distribution BERN_MUT_CNA(Cell::param().RATE_CNA);
+bernoulli_distribution BERN_MUT_CNA_GAIN(Cell::param().RATE_CNA_GAIN);
+
 }// namespace
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 
@@ -115,37 +120,43 @@ std::string Cell::mutate(urbg_t& engine, urbg_t& engine3) {
     return oss.str();
 }
 
-std::string Cell::mutate(urbg_t& engine, urbg_t& engine3) {
-    auto oss = wtl::make_oss();
-    if (BERN_MUT_BIRTH(engine)) {
+std::string Cell::mutate_cnv(urbg_t& engine, urbg_t& engine3, urbg_t& engine_cna, urbg_t& engine_cna_event, urbg_t& engine_copy) {
+    auto oss_cnv_record_ = wtl::make_oss();
+    
+    // if CNA not occured or no copy
+    if (!BERN_MUT_CNA(engine_cna) || copies_.size() > 0)
+        return oss_cnv_record_.str();
+
+    // copy amplification event
+    if (BERN_MUT_CNA_GAIN(engine_cna_event)){
         event_rates_ = std::make_shared<EventRates>(*event_rates_);
         double s = GAUSS_BIRTH(engine);
-        oss << id_ << "\tbeta\t" << std::to_string(uniform_distribution_birth(engine3)) << "\t" << s << "\n";
+        
+        std::uniform_int_distribution<int> random_ind(0, copies_.size()-1);
+        int pos = random_ind(engine_copy);
+        unsigned selected_copy_id = copies_[pos];
+        unsigned new_copy_id = next_copy_id_;
+        copies_.push_back(new_copy_id);
+
+        next_copy_id_ ++; // increment static copy id tracker
+
+        oss_cnv_record_ << id_ << "\t" << selected_copy_id << "\t" << new_copy_id << "\n";
         event_rates_->birth_rate *= (s += 1.0);
     }
-    if (BERN_MUT_DEATH(engine)) {
+    else{   // copy deletion event
         event_rates_ = std::make_shared<EventRates>(*event_rates_);
-        double s = GAUSS_DEATH(engine);
-        oss << id_ << "\tdelta\t" << std::to_string(uniform_distribution_death(engine3)) << "\t" << s << "\n";
-        event_rates_->death_rate *= (s += 1.0);
-    }
-    if (BERN_MUT_ALPHA(engine)) {
-        event_rates_ = std::make_shared<EventRates>(*event_rates_);
-        double s = GAUSS_ALPHA(engine);
-        oss << id_ << "\talpha\t" << std::to_string(uniform_distribution_death(engine3)) << "\t" << s << "\n";
-        event_rates_->death_prob *= (s += 1.0);
-    }
-    if (BERN_MUT_MIGRA(engine) ) {
-        event_rates_ = std::make_shared<EventRates>(*event_rates_);
-        double s = GAUSS_MIGRA(engine);
-        oss << id_ << "\trho\t" << std::to_string(uniform_distribution_migrate(engine3)) << "\t" << s << "\n";
-        event_rates_->migra_rate *= (s += 1.0);
+        double s = GAUSS_BIRTH(engine);
+
+        std::uniform_int_distribution<int> random_ind(0, copies_.size());
+        int pos = random_ind(engine_copy)
+        unsigned selected_copy_id = copies_[pos];
+        copies_.erase(pos);
+
+        oss_cnv_record_ << id_ << "\t" << selected_copy_id << "\t" << "\t" << "\n";
+        event_rates_->birth_rate /= (s += 1.0);
     }
 
-
-    
-    
-    return oss.str();
+    return oss_cnv_record_.str();
 }
 
 

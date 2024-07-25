@@ -75,6 +75,11 @@ struct CellParams {
     double SD_MIGRA = 0.0;
     //! \f$\mu_\alpha\f$
     double RATE_PASSENGER = 0.0;
+
+    //! \f
+    double RATE_CNA = 0.0;
+    //! \f
+    double RATE_CNA_GAIN = 0.0;
 };
 
 /*! @brief Cancer cell
@@ -89,7 +94,7 @@ class Cell {
     Cell(const coord_t& v, unsigned i,
          std::shared_ptr<EventRates> er=std::make_shared<EventRates>()) noexcept:
       event_rates_(er), coord_(v), id_(i) {}
-    //! Constructor for first cells with copy number initialization, Yunong Xia
+    //! Constructor for first cells with copy number initialization, (Yunong Xia)
     Cell(const coord_t& v, unsigned i,
          std::shared_ptr<EventRates> er=std::make_shared<EventRates>()) noexcept:
       event_rates_(er), coord_(v), id_(i) {
@@ -122,6 +127,8 @@ class Cell {
     std::string force_mutate(urbg_t&);
     //! seeding another tumor
     std::string seeding(unsigned int);
+    //! copy number mutation (Yunong Xia)
+    std::string mutate_cnv(urbg_t&, urbg_t&, urbg_t&, urbg_t&, urbg_t&);
 
     //! Calc dt and set #next_event_
     double delta_time(urbg_t&, double now, double positional_value, bool surrounded=false);
@@ -188,6 +195,8 @@ class Cell {
     //! Get #PARAM_
     static const param_type& param() {return PARAM_;}
 
+    static unsigned next_copy_id_;
+
   private:
     //! Parameters shared among instances
     static param_type PARAM_;
@@ -214,6 +223,7 @@ class Cell {
     //! next event: birth, death, or migration
     Event next_event_ = Event::birth;
 
+    //! set of copies the cell has (Yunong Xia)
     std::vector<unsigned> copies_;
 };
 

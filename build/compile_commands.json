@@ -1,0 +1,56 @@
+[
+{
+  "directory": "/home/yunong-xia/Sunpath/CometRev/build",
+  "command": "/usr/bin/g++ -Dcomet_EXPORTS -I/home/yunong-xia/Sunpath/CometRev/build/wtl-v0.8.5/include -I/home/yunong-xia/Sunpath/CometRev/build/clippson-v0.8.3/include -g -fPIC -march=native -Wall -Wextra -pedantic -o CMakeFiles/comet.dir/src/cell.cpp.o -c /home/yunong-xia/Sunpath/CometRev/src/cell.cpp",
+  "file": "/home/yunong-xia/Sunpath/CometRev/src/cell.cpp",
+  "output": "CMakeFiles/comet.dir/src/cell.cpp.o"
+},
+{
+  "directory": "/home/yunong-xia/Sunpath/CometRev/build",
+  "command": "/usr/bin/g++ -Dcomet_EXPORTS -I/home/yunong-xia/Sunpath/CometRev/build/wtl-v0.8.5/include -I/home/yunong-xia/Sunpath/CometRev/build/clippson-v0.8.3/include -g -fPIC -march=native -Wall -Wextra -pedantic -o CMakeFiles/comet.dir/src/coord.cpp.o -c /home/yunong-xia/Sunpath/CometRev/src/coord.cpp",
+  "file": "/home/yunong-xia/Sunpath/CometRev/src/coord.cpp",
+  "output": "CMakeFiles/comet.dir/src/coord.cpp.o"
+},
+{
+  "directory": "/home/yunong-xia/Sunpath/CometRev/build",
+  "command": "/usr/bin/g++ -Dcomet_EXPORTS -I/home/yunong-xia/Sunpath/CometRev/build/wtl-v0.8.5/include -I/home/yunong-xia/Sunpath/CometRev/build/clippson-v0.8.3/include -g -fPIC -march=native -Wall -Wextra -pedantic -o CMakeFiles/comet.dir/src/simulation.cpp.o -c /home/yunong-xia/Sunpath/CometRev/src/simulation.cpp",
+  "file": "/home/yunong-xia/Sunpath/CometRev/src/simulation.cpp",
+  "output": "CMakeFiles/comet.dir/src/simulation.cpp.o"
+},
+{
+  "directory": "/home/yunong-xia/Sunpath/CometRev/build",
+  "command": "/usr/bin/g++ -Dcomet_EXPORTS -I/home/yunong-xia/Sunpath/CometRev/build/wtl-v0.8.5/include -I/home/yunong-xia/Sunpath/CometRev/build/clippson-v0.8.3/include -g -fPIC -march=native -Wall -Wextra -pedantic -o CMakeFiles/comet.dir/src/tissue.cpp.o -c /home/yunong-xia/Sunpath/CometRev/src/tissue.cpp",
+  "file": "/home/yunong-xia/Sunpath/CometRev/src/tissue.cpp",
+  "output": "CMakeFiles/comet.dir/src/tissue.cpp.o"
+},
+{
+  "directory": "/home/yunong-xia/Sunpath/CometRev/build",
+  "command": "/usr/bin/g++ -Dcomet_EXPORTS -I/home/yunong-xia/Sunpath/CometRev/build/wtl-v0.8.5/include -I/home/yunong-xia/Sunpath/CometRev/build/clippson-v0.8.3/include -g -fPIC -march=native -Wall -Wextra -pedantic -o CMakeFiles/comet.dir/src/version.cpp.o -c /home/yunong-xia/Sunpath/CometRev/src/version.cpp",
+  "file": "/home/yunong-xia/Sunpath/CometRev/src/version.cpp",
+  "output": "CMakeFiles/comet.dir/src/version.cpp.o"
+},
+{
+  "directory": "/home/yunong-xia/Sunpath/CometRev/build",
+  "command": "/usr/bin/g++ -DZLIB_FOUND -I/home/yunong-xia/Sunpath/CometRev/src -I/home/yunong-xia/Sunpath/CometRev/build/wtl-v0.8.5/include -g -march=native -Wall -Wextra -pedantic -o CMakeFiles/comet-exe.dir/src/main.cpp.o -c /home/yunong-xia/Sunpath/CometRev/src/main.cpp",
+  "file": "/home/yunong-xia/Sunpath/CometRev/src/main.cpp",
+  "output": "CMakeFiles/comet-exe.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/yunong-xia/Sunpath/CometRev/build/test",
+  "command": "/usr/bin/g++  -I/home/yunong-xia/Sunpath/CometRev/src -I/home/yunong-xia/Sunpath/CometRev/build/wtl-v0.8.5/include -g -march=native -Wall -Wextra -pedantic -o CMakeFiles/test-cell.dir/cell.cpp.o -c /home/yunong-xia/Sunpath/CometRev/test/cell.cpp",
+  "file": "/home/yunong-xia/Sunpath/CometRev/test/cell.cpp",
+  "output": "test/CMakeFiles/test-cell.dir/cell.cpp.o"
+},
+{
+  "directory": "/home/yunong-xia/Sunpath/CometRev/build/test",
+  "command": "/usr/bin/g++  -I/home/yunong-xia/Sunpath/CometRev/src -I/home/yunong-xia/Sunpath/CometRev/build/wtl-v0.8.5/include -g -march=native -Wall -Wextra -pedantic -o CMakeFiles/test-coord.dir/coord.cpp.o -c /home/yunong-xia/Sunpath/CometRev/test/coord.cpp",
+  "file": "/home/yunong-xia/Sunpath/CometRev/test/coord.cpp",
+  "output": "test/CMakeFiles/test-coord.dir/coord.cpp.o"
+},
+{
+  "directory": "/home/yunong-xia/Sunpath/CometRev/build/test",
+  "command": "/usr/bin/g++  -I/home/yunong-xia/Sunpath/CometRev/src -I/home/yunong-xia/Sunpath/CometRev/build/wtl-v0.8.5/include -g -march=native -Wall -Wextra -pedantic -o CMakeFiles/test-tissue.dir/tissue.cpp.o -c /home/yunong-xia/Sunpath/CometRev/test/tissue.cpp",
+  "file": "/home/yunong-xia/Sunpath/CometRev/test/tissue.cpp",
+  "output": "test/CMakeFiles/test-tissue.dir/tissue.cpp.o"
+}
+]

@@ -1,0 +1,86 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"build/clippson-v0.8.3/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 25,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 31,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 41,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "include",
+			"paths" : 
+			[
+				{
+					"from" : "build/clippson-v0.8.3/include",
+					"to" : "."
+				}
+			],
+			"type" : "directory"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "share/clippson",
+			"exportName" : "clippson-config",
+			"exportTargets" : 
+			[
+				{
+					"id" : "clippson::@374ec69401246680b013",
+					"index" : 0
+				}
+			],
+			"paths" : 
+			[
+				"build/clippson-v0.8.3/CMakeFiles/Export/c04cd3c02221fc986cba11c144732b5f/clippson-config.cmake"
+			],
+			"type" : "export"
+		},
+		{
+			"backtrace" : 3,
+			"component" : "Unspecified",
+			"destination" : "share/clippson",
+			"paths" : 
+			[
+				"build/build/clippson-v0.8.3/clippson-config-version.cmake"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "build/clippson-v0.8.3",
+		"source" : "build/clippson-v0.8.3"
+	}
+}
