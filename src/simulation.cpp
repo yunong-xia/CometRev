@@ -137,7 +137,11 @@ cell_options(nlohmann::json* vm, EventRates* init_event_rates, CellParams* cell_
         wtl::option(vm, {"sd"}, &cell_params->SD_DEATH, u8"σ_δ"),
         wtl::option(vm, {"sa"}, &cell_params->SD_ALPHA, u8"σ_α"),
         wtl::option(vm, {"sm"}, &cell_params->SD_MIGRA, u8"σ_ρ")
-      ).doc("SD of driver mutations:")
+      ).doc("SD of driver mutations:"),
+      ( // add copy number event options (Yunong Xia)
+        wtl::option(vm, {"uc"}, &cell_params->RATE_CNA, u8"μ_c"),
+        wtl::option(vm, {"ucg"}, &cell_params->RATE_CNA_GAIN, u8"μ_cg")
+      ).doc("Rate of copy number events") // Yunong Xia
     ).doc("Cell:");
 }
 

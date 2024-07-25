@@ -185,7 +185,7 @@ std::string Cell::mutate_snv_on_cn(urbg_t& engine2, urbg_t& engine3){
         // accumulate SNVs on each one.
         for(int n=0; n<n_snvs; ++n)
             snvs = snvs + std::to_string(uniform_distribution(engine3)) + ",";
-
+        
         oss << id_ << "\t" << copies_[i] << "\t" << snvs << "\n";
     }
 
