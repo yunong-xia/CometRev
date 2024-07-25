@@ -7,7 +7,6 @@
 
 #include "coord.hpp"
 #include "random.hpp"
-#include "segment.hpp"
 
 #include <cstdint>
 #include <vector>
@@ -129,6 +128,8 @@ class Cell {
     std::string seeding(unsigned int);
     //! copy number mutation (Yunong Xia)
     std::string mutate_cnv(urbg_t&, urbg_t&, urbg_t&, urbg_t&, urbg_t&);
+    //! snv accumulated on cn (Yunong Xia)
+    std::string mutate_snv_on_cn(urbg_t&, urbg_t&);
 
     //! Calc dt and set #next_event_
     double delta_time(urbg_t&, double now, double positional_value, bool surrounded=false);

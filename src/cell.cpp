@@ -148,9 +148,9 @@ std::string Cell::mutate_cnv(urbg_t& engine, urbg_t& engine3, urbg_t& engine_cna
         double s = GAUSS_BIRTH(engine);
 
         std::uniform_int_distribution<int> random_ind(0, copies_.size());
-        int pos = random_ind(engine_copy)
+        int pos = random_ind(engine_copy);
         unsigned selected_copy_id = copies_[pos];
-        copies_.erase(pos);
+        copies_.erase(copies_.begin()+pos);
 
         oss_cnv_record_ << id_ << "\t" << selected_copy_id << "\t" << "\t" << "\n";
         event_rates_->birth_rate /= (s += 1.0);
@@ -169,6 +169,26 @@ std::string Cell::mutate2(urbg_t& engine2, urbg_t& engine3) {
       passengers = passengers + std::to_string(uniform_distribution(engine3)) + ",";
     
     oss << id_ << "\t" << passengers << "\n";
+    return oss.str();
+}
+
+std::string Cell::mutate_snv_on_cn(urbg_t& engine2, urbg_t& engine3){
+    auto oss = wtl::make_oss();
+    
+    // similar to passenger mutations in Comet
+
+    // iterate over copies and accumulate SNVs on them
+    for(int i=0; i < copies_.size(); i++){
+        auto n_snvs = poisson_distribution(engine2);
+        std::string snvs = "";
+        
+        // accumulate SNVs on each one.
+        for(int n=0; n<n_snvs; ++n)
+            snvs = snvs + std::to_string(uniform_distribution(engine3)) + ",";
+
+        oss << id_ << "\t" << copies_[i] << "\t" << snvs << "\n";
+    }
+
     return oss.str();
 }
 
