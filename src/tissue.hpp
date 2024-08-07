@@ -28,6 +28,19 @@ class Benchmark;
 class Tissue {
   public:
     //! Constructor
+    // Tissue(
+    //   size_t initial_size=1u,
+    //   unsigned dimensions=3u,
+    //   const std::string& coordinate="moore",
+    //   const std::string& local_density_effect="const",
+    //   const std::string& displacement_path="random",
+    //   const EventRates& init_event_rates=EventRates{},
+    //   uint_fast32_t seed=std::random_device{}(),
+    //   uint_fast32_t seed2=std::random_device{}(),
+    //   uint_fast32_t seed3=std::random_device{}(),
+    //   bool enable_benchmark=false);
+    
+    //! Constructor 
     Tissue(
       size_t initial_size=1u,
       unsigned dimensions=3u,
@@ -38,7 +51,12 @@ class Tissue {
       uint_fast32_t seed=std::random_device{}(),
       uint_fast32_t seed2=std::random_device{}(),
       uint_fast32_t seed3=std::random_device{}(),
+      uint_fast32_t seed_cna=std::random_device{}(),
+      uint_fast32_t seed_cna_event=std::random_device{}(),
+      uint_fast32_t seed_engine_copy=std::random_device{}(),
       bool enable_benchmark=false);
+
+
     ~Tissue();
 
     //! main function
@@ -208,11 +226,14 @@ class Tissue {
     //! passenger mutation random number generator
     std::unique_ptr<urbg_t> engine3_;
 
-    //! copy number id random number generator
-    std::unique_ptr<urbg_t> engine_cn_;
+    //!
+    std::unique_ptr<urbg_t> engine_cna_;
 
-    //! point mutation id random number generator
-    std::unique_ptr<urbg_t> engine_snv_;
+    //!
+    std::unique_ptr<urbg_t> engine_cna_event_;
+
+    //!
+    std::unique_ptr<urbg_t> engine_copy_;
 
 };
 

@@ -23,10 +23,16 @@ Tissue::Tissue(
   const uint_fast32_t seed,
   const uint_fast32_t seed2,
   const uint_fast32_t seed3,
+  const uint_fast32_t seed_cna,
+  const uint_fast32_t seed_cna_event,
+  const uint_fast32_t seed_copy,
   const bool enable_benchmark):
   engine_(std::make_unique<urbg_t>(seed)),
   engine2_(std::make_unique<urbg_t>(seed2)),
-  engine3_(std::make_unique<urbg_t>(seed3)) {
+  engine3_(std::make_unique<urbg_t>(seed3)),
+  engine_cna_(std::make_unique<urbg_t>(seed_cna)),
+  engine_cna_event_(std::make_unique<urbg_t>(seed_cna_event)),
+  engine_copy_(std::make_unique<urbg_t>(seed_copy)) {
     if (enable_benchmark) {
         benchmark_ = std::make_unique<Benchmark>();
         benchmark_->append(0u);
@@ -131,15 +137,33 @@ bool Tissue::grow(const size_t max_size, const double max_time,
                 daughter->differentiate(*engine_);
                 daughter->set_time_of_birth(time_, ++id_tail_, ancestor, extant_cells_.size());
                 
-                drivers_ << mother->mutate(*engine_, *engine3_);
-                drivers_ << daughter->mutate(*engine_, *engine3_);
+                //drivers_ << mother->mutate(*engine_, *engine3_);
+                //drivers_ << daughter->mutate(*engine_, *engine3_);
+
+
+                drivers_ << mother ->mutate_cnv(*engine_, *engine3_, *engine_cna_, *engine_cna_event_, *engine_copy_); //Yunong Xia
+                drivers_ << daughter ->mutate_cnv(*engine_, *engine3_, *engine_cna_, *engine_cna_event_, *engine_copy_); // Yunong Xia
+
+
+                // //stopMutH, boolean option to indicate whether or not to stop mutation after some tumor size
+                // if (! stopMutH) {                                 //ruping
+                //    passengers_ << mother->mutate2(*engine2_, *engine3_);
+                //    passengers_ << daughter->mutate2(*engine2_, *engine3_);
+                // } else {                                          //ruping
+                //      if (cur_size <= max_size*0.5) {
+                //     passengers_ << mother->mutate2(*engine2_, *engine3_);
+                //     passengers_ << daughter->mutate2(*engine2_, *engine3_);
+                //   }
+                // }
+
+                //stopMutH, boolean option to indicate whether or not to stop mutation after some tumor size
                 if (! stopMutH) {                                 //ruping
-                   passengers_ << mother->mutate2(*engine2_, *engine3_);
-                   passengers_ << daughter->mutate2(*engine2_, *engine3_);
+                   passengers_ << mother->mutate_snv_on_cn(*engine2_, *engine3_);
+                   passengers_ << daughter->mutate_snv_on_cn(*engine2_, *engine3_);
                 } else {                                          //ruping
-                  if (cur_size <= max_size*0.5) {
-                    passengers_ << mother->mutate2(*engine2_, *engine3_);
-                    passengers_ << daughter->mutate2(*engine2_, *engine3_);
+                     if (cur_size <= max_size*0.5) {
+                    passengers_ << mother->mutate_snv_on_cn(*engine2_, *engine3_);
+                    passengers_ << daughter->mutate_snv_on_cn(*engine2_, *engine3_);
                   }
                 }
 

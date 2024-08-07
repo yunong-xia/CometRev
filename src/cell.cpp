@@ -120,11 +120,14 @@ std::string Cell::mutate(urbg_t& engine, urbg_t& engine3) {
     return oss.str();
 }
 
+// Yunong Xia
 std::string Cell::mutate_cnv(urbg_t& engine, urbg_t& engine3, urbg_t& engine_cna, urbg_t& engine_cna_event, urbg_t& engine_copy) {
     auto oss_cnv_record_ = wtl::make_oss();
-    
+
+    printf("%s", BERN_MUT_BIRTH(engine) ? "true\n" : "false\n");
+
     // if CNA not occured or no copy
-    if (!BERN_MUT_CNA(engine_cna) || copies_.size() > 0)
+    if (!BERN_MUT_CNA(engine_cna) || copies_.size() == 0)  // if size == 0, will cell immediately die?
         return oss_cnv_record_.str();
 
     // copy amplification event
@@ -135,10 +138,11 @@ std::string Cell::mutate_cnv(urbg_t& engine, urbg_t& engine3, urbg_t& engine_cna
         std::uniform_int_distribution<int> random_ind(0, copies_.size()-1);
         int pos = random_ind(engine_copy);
         unsigned selected_copy_id = copies_[pos];
-        unsigned new_copy_id = next_copy_id_;
+        //unsigned new_copy_id = next_copy_id_;
+        unsigned new_copy_id = uniform_distribution_birth(engine3);
         copies_.push_back(new_copy_id);
 
-        next_copy_id_ ++; // increment static copy id tracker
+        //next_copy_id_ ++; // increment static copy id tracker
 
         oss_cnv_record_ << id_ << "\t" << selected_copy_id << "\t" << new_copy_id << "\n";
         event_rates_->birth_rate *= (s += 1.0);
@@ -154,8 +158,10 @@ std::string Cell::mutate_cnv(urbg_t& engine, urbg_t& engine3, urbg_t& engine_cna
 
         oss_cnv_record_ << id_ << "\t" << selected_copy_id << "\t" << "\t" << "\n";
         event_rates_->birth_rate /= (s += 1.0);
+        
     }
-
+    
+    printf("Here\n");
     return oss_cnv_record_.str();
 }
 
@@ -172,13 +178,15 @@ std::string Cell::mutate2(urbg_t& engine2, urbg_t& engine3) {
     return oss.str();
 }
 
+
+// Yunong Xia
 std::string Cell::mutate_snv_on_cn(urbg_t& engine2, urbg_t& engine3){
     auto oss = wtl::make_oss();
     
     // similar to passenger mutations in Comet
 
     // iterate over copies and accumulate SNVs on them
-    for(int i=0; i < copies_.size(); i++){
+    for(unsigned i=0; i < copies_.size(); i++){
         auto n_snvs = poisson_distribution(engine2);
         std::string snvs = "";
         

@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/yunong-xia/Sunpath/CometRev/src -I/home/yunong-xia/Sunpath/CometRev/build/wtl-v0.8.5/include
 
-CXX_FLAGS = -g -march=native -Wall -Wextra -pedantic
+CXX_FLAGS = -O3 -DNDEBUG -march=native -Wall -Wextra -pedantic
 

@@ -1,1 +1,1 @@
-/usr/bin/g++ -g "CMakeFiles/test-coord.dir/coord.cpp.o" -o test-coord  -Wl,-rpath,/home/yunong-xia/Sunpath/CometRev/build ../libcomet.so 
+/usr/bin/g++ -O3 -DNDEBUG "CMakeFiles/test-coord.dir/coord.cpp.o" -o test-coord  -Wl,-rpath,/home/yunong-xia/Sunpath/CometRev/build ../libcomet.so 

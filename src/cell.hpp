@@ -74,7 +74,6 @@ struct CellParams {
     double SD_MIGRA = 0.0;
     //! \f$\mu_\alpha\f$
     double RATE_PASSENGER = 0.0;
-
     //! \f
     double RATE_CNA = 0.0;
     //! \f
@@ -89,10 +88,10 @@ class Cell {
     using param_type = CellParams;
     //! Default constructor
     Cell() = default;
-    //! Constructor for first cells
-    Cell(const coord_t& v, unsigned i,
-         std::shared_ptr<EventRates> er=std::make_shared<EventRates>()) noexcept:
-      event_rates_(er), coord_(v), id_(i) {}
+    // //! Constructor for first cells
+    // Cell(const coord_t& v, unsigned i,
+    //      std::shared_ptr<EventRates> er=std::make_shared<EventRates>()) noexcept:
+    //   event_rates_(er), coord_(v), id_(i) {}
     //! Constructor for first cells with copy number initialization, (Yunong Xia)
     Cell(const coord_t& v, unsigned i,
          std::shared_ptr<EventRates> er=std::make_shared<EventRates>()) noexcept:
@@ -196,7 +195,7 @@ class Cell {
     //! Get #PARAM_
     static const param_type& param() {return PARAM_;}
 
-    static unsigned next_copy_id_;
+    //static unsigned next_copy_id_;
 
   private:
     //! Parameters shared among instances

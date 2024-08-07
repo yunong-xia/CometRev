@@ -1,1 +1,1 @@
-/usr/bin/g++ -g "CMakeFiles/test-cell.dir/cell.cpp.o" -o test-cell  -Wl,-rpath,/home/yunong-xia/Sunpath/CometRev/build ../libcomet.so 
+/usr/bin/g++ -O3 -DNDEBUG "CMakeFiles/test-cell.dir/cell.cpp.o" -o test-cell  -Wl,-rpath,/home/yunong-xia/Sunpath/CometRev/build ../libcomet.so 

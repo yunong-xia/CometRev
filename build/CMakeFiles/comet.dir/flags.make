@@ -6,5 +6,5 @@ CXX_DEFINES = -Dcomet_EXPORTS
 
 CXX_INCLUDES = -I/home/yunong-xia/Sunpath/CometRev/build/wtl-v0.8.5/include -I/home/yunong-xia/Sunpath/CometRev/build/clippson-v0.8.3/include
 
-CXX_FLAGS = -g -fPIC -march=native -Wall -Wextra -pedantic
+CXX_FLAGS = -O3 -DNDEBUG -fPIC -march=native -Wall -Wextra -pedantic
 

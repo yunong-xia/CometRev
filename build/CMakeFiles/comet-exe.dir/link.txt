@@ -1,1 +1,1 @@
-/usr/bin/g++ -g "CMakeFiles/comet-exe.dir/src/main.cpp.o" -o comet  -Wl,-rpath,/home/yunong-xia/Sunpath/CometRev/build: libcomet.so /usr/lib/x86_64-linux-gnu/libz.so 
+/usr/bin/g++ -O3 -DNDEBUG "CMakeFiles/comet-exe.dir/src/main.cpp.o" -o comet  -Wl,-rpath,/home/yunong-xia/Sunpath/CometRev/build: libcomet.so /usr/lib/x86_64-linux-gnu/libz.so 
