@@ -140,7 +140,7 @@ bool Tissue::grow(const size_t max_size, const double max_time,
                 //drivers_ << mother->mutate(*engine_, *engine3_);
                 //drivers_ << daughter->mutate(*engine_, *engine3_);
 
-
+                printf("mutate cnv\n");
                 drivers_ << mother ->mutate_cnv(*engine_, *engine3_, *engine_cna_, *engine_cna_event_, *engine_copy_); //Yunong Xia
                 drivers_ << daughter ->mutate_cnv(*engine_, *engine3_, *engine_cna_, *engine_cna_event_, *engine_copy_); // Yunong Xia
 
@@ -437,13 +437,20 @@ std::ostream& Tissue::write_snapshots(std::ostream& ost) const {
     return ost;
 }
 
+// std::ostream& Tissue::write_drivers(std::ostream& ost) const {
+//     ost << "id\ttype\tcoor\tcoef\n" << drivers_.rdbuf();
+//     return ost;
+// }
+
+// Yunong Xia
 std::ostream& Tissue::write_drivers(std::ostream& ost) const {
-    ost << "id\ttype\tcoor\tcoef\n" << drivers_.rdbuf();
+    ost << "cell_id\tprecursor_copy_id\tnew_copy_id\n" << drivers_.rdbuf();
     return ost;
 }
 
+
 std::ostream& Tissue::write_passengers(std::ostream& ost) const {
-    ost << "id\tcoor\n" << passengers_.rdbuf();
+    ost << "id\tcopy_id\tsnv_id\n" << passengers_.rdbuf();
     return ost;
 }
 

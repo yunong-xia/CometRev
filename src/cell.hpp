@@ -107,7 +107,8 @@ class Cell {
       coord_(other.coord_),
       id_(other.id_),
       TsizeNow_(other.TsizeNow_),  // ruping
-      proliferation_capacity_(other.proliferation_capacity_) {}
+      proliferation_capacity_(other.proliferation_capacity_),
+      copies_(other.copies_) {}
     //! Destructor
     ~Cell() noexcept = default;
     //! Copy assignment operator

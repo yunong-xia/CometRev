@@ -83,6 +83,9 @@ void Cell::param(const param_type& p) {
     GAUSS_ALPHA.param(decltype(GAUSS_ALPHA)::param_type(PARAM_.MEAN_ALPHA, PARAM_.SD_ALPHA));
     GAUSS_MIGRA.param(decltype(GAUSS_MIGRA)::param_type(PARAM_.MEAN_MIGRA, PARAM_.SD_MIGRA));
     poisson_distribution.param(decltype(poisson_distribution)::param_type(PARAM_.RATE_PASSENGER));   //ruping
+
+    BERN_MUT_CNA.param(PARAM_.RATE_CNA);
+    BERN_MUT_CNA_GAIN.param(PARAM_.RATE_CNA_GAIN);
 }
 
 void Cell::differentiate(urbg_t& engine) {
@@ -124,12 +127,13 @@ std::string Cell::mutate(urbg_t& engine, urbg_t& engine3) {
 std::string Cell::mutate_cnv(urbg_t& engine, urbg_t& engine3, urbg_t& engine_cna, urbg_t& engine_cna_event, urbg_t& engine_copy) {
     auto oss_cnv_record_ = wtl::make_oss();
 
-    printf("%s", BERN_MUT_BIRTH(engine) ? "true\n" : "false\n");
-
-    // if CNA not occured or no copy
-    if (!BERN_MUT_CNA(engine_cna) || copies_.size() == 0)  // if size == 0, will cell immediately die?
+    // if CNA not occured or no cop{y
+    if (!BERN_MUT_CNA(engine_cna) || copies_.size() == 0){  // if size == 0, will cell immediately die?
+        printf("%d\n", copies_.size());
         return oss_cnv_record_.str();
+    }
 
+    printf("%f\n", Cell::param().RATE_CNA_GAIN);
     // copy amplification event
     if (BERN_MUT_CNA_GAIN(engine_cna_event)){
         event_rates_ = std::make_shared<EventRates>(*event_rates_);
